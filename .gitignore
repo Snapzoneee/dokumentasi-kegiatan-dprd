@@ -1,0 +1,10 @@
+node_modules/
+.runtime/
+.next/
+*.tsbuildinfo
+.env
+prisma/*.db
+prisma/*.db-journal
+storage/uploads/*
+!storage/uploads/.gitkeep
+npm-debug.log*

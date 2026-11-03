@@ -1,0 +1,61 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           String     @id @default(cuid())
+  name         String
+  email        String     @unique
+  password     String
+  role         String     @default("PETUGAS")
+  createdAt    DateTime   @default(now())
+  updatedAt    DateTime   @updatedAt
+  activities   Activity[]
+}
+
+model Category {
+  id          String     @id @default(cuid())
+  name        String     @unique
+  description String?
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+  activities  Activity[]
+}
+
+model Activity {
+  id           String          @id @default(cuid())
+  title        String
+  categoryId   String
+  activityDate DateTime
+  activityTime String?
+  location     String
+  description  String
+  notes        String?
+  createdBy    String
+  createdAt    DateTime        @default(now())
+  updatedAt    DateTime        @updatedAt
+  category     Category        @relation(fields: [categoryId], references: [id], onDelete: Restrict)
+  creator      User            @relation(fields: [createdBy], references: [id], onDelete: Restrict)
+  documents    Documentation[]
+
+  @@index([activityDate])
+  @@index([categoryId])
+}
+
+model Documentation {
+  id         String   @id @default(cuid())
+  activityId String
+  fileName   String
+  filePath   String   @unique
+  fileType   String
+  fileSize   Int
+  createdAt  DateTime @default(now())
+  activity   Activity @relation(fields: [activityId], references: [id], onDelete: Cascade)
+
+  @@index([activityId])
+}
