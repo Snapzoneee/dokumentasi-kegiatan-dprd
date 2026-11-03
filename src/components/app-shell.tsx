@@ -1,9 +1,10 @@
 'use client';
 
 import Link from 'next/link';
+import Image from 'next/image';
 import { usePathname, useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
-import { Archive, BarChart3, Camera, ChevronRight, ClipboardList, FolderKanban, Grid2X2, Images, LogOut, Menu, Search, Settings2, ShieldCheck, Users, X } from 'lucide-react';
+import { Archive, BarChart3, Camera, ChevronRight, ClipboardList, FolderKanban, Grid2X2, Images, LogOut, Menu, Search, Settings2, Users, X } from 'lucide-react';
 import { toast } from 'sonner';
 
 type User = { id: string; name: string; email: string; role: 'ADMIN' | 'PETUGAS' };
@@ -32,7 +33,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
     {open && <button aria-label="Tutup menu" onClick={() => setOpen(false)} style={{ position: 'fixed', inset: 0, zIndex: 25, background: '#102a4359', border: 0 }} />}
     <aside className={`sidebar ${open ? 'open' : ''}`}>
       <Link className="brand" href="/dashboard" onClick={() => setOpen(false)}>
-        <span className="brand-mark"><ShieldCheck size={22} /></span>
+        <Image src="/dprd-banjarbaru-emblem.png" alt="Lambang DPRD Kota Banjarbaru" width={46} height={44} priority className="brand-logo" />
         <span><strong style={{ display: 'block', font: '800 12px Manrope', letterSpacing: '.03em' }}>DOKUMENTASI DPRD</strong><small style={{ color: '#b6c6d6', fontSize: 9 }}>KOTA BANJARBARU</small></span>
       </Link>
       {groups.map((group) => <div key={group.label}>

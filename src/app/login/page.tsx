@@ -1,10 +1,11 @@
 'use client';
 
 import { useState } from 'react';
+import Image from 'next/image';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
-import { Eye, EyeOff, FileImage, Landmark, LockKeyhole, Mail, ShieldCheck } from 'lucide-react';
+import { Eye, EyeOff, LockKeyhole, Mail, ShieldCheck } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { toast } from 'sonner';
 
@@ -19,8 +20,8 @@ export default function LoginPage() {
     catch (error) { toast.error(error instanceof Error ? error.message : 'Login gagal.'); } finally { setBusy(false); }
   }
   return <main className="login-screen">
-    <section className="login-art"><div style={{ display: 'flex', alignItems: 'center', gap: 11, position: 'relative', zIndex: 1 }}><span className="brand-mark"><Landmark size={21} /></span><span style={{ font: '700 12px Manrope', letterSpacing: '.08em' }}>SEKRETARIAT DPRD BANJARBARU</span></div><h1>Dokumentasi kegiatan, tertata dan mudah ditemukan.</h1><p>Platform pengelolaan dokumentasi kegiatan DPRD Kota Banjarbaru yang aman, terpusat, dan dapat diakses oleh tim yang berwenang.</p><div style={{ display: 'flex', gap: 8, marginTop: 28, color: '#cadae9', fontSize: 11, position: 'relative', zIndex: 1 }}><ShieldCheck size={16} /> Akses terproteksi · Arsip tersimpan terpusat</div><div style={{ position: 'absolute', left: '7vw', bottom: 36, fontSize: 10, color: '#8ea3b8' }}>BAGIAN FASILITASI · KOTA BANJARBARU</div></section>
-    <section className="login-form-side"><form className="login-form" onSubmit={handleSubmit(submit)}><div className="eyebrow" style={{ marginBottom: 12 }}>Portal Dokumentasi</div><h2>Masuk ke akun</h2><p>Gunakan akun yang terdaftar untuk mengelola dokumentasi.</p>
+    <section className="login-art"><div style={{ display: 'flex', alignItems: 'center', gap: 11, position: 'relative', zIndex: 1 }}><Image src="/dprd-banjarbaru-emblem.png" alt="Lambang DPRD Kota Banjarbaru" width={54} height={51} priority className="brand-logo" /><span style={{ font: '700 12px Manrope', letterSpacing: '.08em' }}>SEKRETARIAT DPRD BANJARBARU</span></div><h1>Dokumentasi kegiatan, tertata dan mudah ditemukan.</h1><p>Platform pengelolaan dokumentasi kegiatan DPRD Kota Banjarbaru yang aman, terpusat, dan dapat diakses oleh tim yang berwenang.</p><div style={{ display: 'flex', gap: 8, marginTop: 28, color: '#cadae9', fontSize: 11, position: 'relative', zIndex: 1 }}><ShieldCheck size={16} /> Akses terproteksi · Arsip tersimpan terpusat</div><div style={{ position: 'absolute', left: '7vw', bottom: 36, fontSize: 10, color: '#8ea3b8' }}>BAGIAN FASILITASI · KOTA BANJARBARU</div></section>
+    <section className="login-form-side"><form className="login-form" onSubmit={handleSubmit(submit)}><div className="mobile-login-brand"><Image src="/dprd-banjarbaru-emblem.png" alt="Lambang DPRD Kota Banjarbaru" width={56} height={53} priority className="brand-logo" /><span>Sekretariat DPRD Kota Banjarbaru</span></div><div className="eyebrow" style={{ marginBottom: 12 }}>Portal Dokumentasi</div><h2>Masuk ke akun</h2><p>Gunakan akun yang terdaftar untuk mengelola dokumentasi.</p>
       <div className="field"><label htmlFor="email">Email</label><div style={{ position: 'relative' }}><Mail size={15} style={{ position: 'absolute', left: 12, top: 12, color: '#8192a3' }} /><input id="email" className="input" style={{ paddingLeft: 36 }} placeholder="nama@banjarbarukota.go.id" autoComplete="username" {...register('email')} /></div>{errors.email && <span className="error-text">{errors.email.message}</span>}</div>
       <div className="field"><label htmlFor="password">Kata sandi</label><div className="password-box"><LockKeyhole size={15} style={{ position: 'absolute', left: 12, top: 12, color: '#8192a3' }} /><input id="password" type={visible ? 'text' : 'password'} className="input" style={{ paddingLeft: 36 }} placeholder="Masukkan kata sandi" autoComplete="current-password" {...register('password')} /><button type="button" onClick={() => setVisible(!visible)} className="password-toggle" aria-label={visible ? 'Sembunyikan kata sandi' : 'Tampilkan kata sandi'}>{visible ? <EyeOff size={16} /> : <Eye size={16} />}</button></div>{errors.password && <span className="error-text">{errors.password.message}</span>}</div>
       <button className="btn btn-primary" disabled={busy}>{busy ? 'Memeriksa akun…' : 'Masuk'}</button><div style={{ fontSize: 10, textAlign: 'center', color: '#8a99a8', marginTop: 22 }}>Gunakan akun yang disediakan administrator.</div>
